@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 
+//get weather information based on lat/long
 exports.getWeather = (req, res) => {
    //mocking lat long request here, it should come down req.body from client
   const lat = 38.901021;
@@ -17,7 +18,7 @@ exports.getWeather = (req, res) => {
   
   axios.get(url)
     .then(response => {
-      console.log(response.data)
+      //Filter only first 5 days of the forecast
       let forecast = response.data.daily.data.slice(0, 5)
         .map(dayData => {
           let newDay = {
