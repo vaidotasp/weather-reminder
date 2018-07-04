@@ -10,4 +10,7 @@ router.get('/w', controller.getWeather);
 
 router.get('/g', controller.getGoogleLocation);
 
+router.get('/c', controller.getCoordinates);
+
+
 module.exports = router;

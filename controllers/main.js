@@ -49,9 +49,10 @@ exports.getGoogleLocation = (req, res) => {
   //Input query String, partial or full
   //Output - Array of 5 closest suggestions, perhaps containing the lat long
 
-  //1. Connect to Google API Node client
+  //1. Fetch suggestions based on query
   const key = process.env.GAPI;
-  const query = 'washington';
+  //Query should come from req.body, hardcoding for testing purposes
+  const query = 'seat';
   const url = `https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=${key}&input=${query}`;
   axios
     .get(url)
@@ -62,31 +63,23 @@ exports.getGoogleLocation = (req, res) => {
     .catch(error => {
       console.error(error);
     });
-
-  // googleMapsClient
-  //   .geocode({ address: '1600 Amphitheatre Parkway, Mountain View, CA' })
-  //   .asPromise()
-  //   .then(response => {
-  //     res.json(response.json.results);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-  // googleMapsClient
-  //   .placesAutoComplete({
-  //     input: 'washington',
-  //     language: 'en'
-  //   })
-  //   .asPromise()
-  //   .then(response => {
-  //     res.json(response.json.results);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-
-  //2. Generate query parameters
-  //3. Fetch the data from API
-  //4. Send the data back
-  //res.json('Google Endpoint');
 };
+
+exports.getCoordinates = (req, res) => {
+  //input location string
+  //ouput lat and long
+  const key = process.env.GAPI;
+  const query = 'seattle';
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=${key}`
+  
+  axios.get(url)
+    .then(response => {
+    
+    //TODO: need to make sure that resonse will always be this way formatted
+    //TODO: implement when there are 0 results back
+    res.json(response.data.results[0].geometry.location)
+  })
+  .catch(error => {
+    console.error(error)
+  })
+}
