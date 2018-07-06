@@ -10,4 +10,6 @@ router.get('/w', controller.getWeather);
 
 router.get('/g', controller.getGoogleLocation);
 
+router.post('/getSuggestions', controller.getSuggestions);
+
 module.exports = router;

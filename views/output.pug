@@ -1,0 +1,12 @@
+extends layout
+
+h1 Weather Reminder
+  form(class="card" method="post" action="/getSuggestions")
+    label(for="search") Search
+    input(type="text" name="search" placeholder="City")
+    input(type="submit" value="go" class="button")
+  h4 Output:
+  .output || 'no results'
+    ul.locations
+      each city in output || ''
+        +city(city)
